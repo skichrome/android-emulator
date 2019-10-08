@@ -44,8 +44,6 @@ echo "│- Emulator name               │ $EMULATOR_NAME "
 echo "└──────────────────────────────┴─────────────────────────────────────────────────"
 echo ""
 
-exit 0
-
 # Start previously created emulator from create-avd.sh
 $ANDROID_HOME/emulator/emulator-headless -avd $EMULATOR_NAME -wipe-data -noaudio -no-boot-anim -gpu off -no-snapshot -memory 1024 $
 
