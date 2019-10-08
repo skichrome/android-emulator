@@ -6,8 +6,11 @@
 
 echo "------   Android Emulator start script V1.0   ------\n"
 
+# Variables
+EMULATOR_NAME="emulateur-29"
+
 # Start previously created emulator from create-avd.sh
-$ANDROID_HOME/emulator/emulator-headless -avd emulateur-29 -wipe-data -noaudio -no-boot-anim -gpu off -no-snapshot -memory 1024 $
+$ANDROID_HOME/emulator/emulator-headless -avd $EMULATOR_NAME -wipe-data -noaudio -no-boot-anim -gpu off -no-snapshot -memory 1024 $
 
 # Wait for emulator to come online
 WAIT_CMD="$ANDROID_HOME/platform-tools/adb wait-for-device shell getprop init.svc.bootanim"
