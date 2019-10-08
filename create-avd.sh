@@ -1,13 +1,13 @@
 #!/bin/bash
 
 echo ""
-echo "╔═════════════════════════════════════════════════════╗"
-echo "║                                                     ║"
-echo "║        Android Emulator creation script v1.1        ║"
-echo "║                                                     ║"
-echo "║      Use -h or --help to see available commands     ║"
-echo "║                                                     ║"
-echo "╚═════════════════════════════════════════════════════╝"
+echo "            ╔═════════════════════════════════════════════════════╗"
+echo "            ║                                                     ║"
+echo "            ║        Android Emulator creation script v1.1        ║"
+echo "            ║                                                     ║"
+echo "            ║      Use -h or --help to see available commands     ║"
+echo "            ║                                                     ║"
+echo "            ╚═════════════════════════════════════════════════════╝"
 echo ""
 
 show_help()
@@ -62,19 +62,21 @@ done
 # Android Emulator System Image
 SYSTEM_IMAGE="system-images;android-${ANDROID_BUILD_VERSION};${ANDROID_EMULATOR_IMG_TYPE};${ANDROID_EMULATOR_ARCH}"
 
-echo "┌──────────────────────────────────┬─────────────────────────────────────────────────"
-echo "│Android build version             │ $ANDROID_BUILD_VERSION"
-echo "├──────────────────────────────────┼─────────────────────────────────────────────────"
-echo "│Android build tools version       │ $ANDROID_BUILD_TOOLS_VERSION"
-echo "├──────────────────────────────────┼─────────────────────────────────────────────────"
-echo "│Emulator image type               │ $ANDROID_EMULATOR_IMG_TYPE"
-echo "├──────────────────────────────────┼─────────────────────────────────────────────────"
-echo "│Emulator architecture             │ $ANDROID_EMULATOR_ARCH"
-echo "├──────────────────────────────────┼─────────────────────────────────────────────────"
-echo "│Emulator name                     │ $EMULATOR_NAME"
-echo "├──────────────────────────────────┼─────────────────────────────────────────────────"
-echo "│Emulator system image             │ $SYSTEM_IMAGE"
-echo "└──────────────────────────────────┴─────────────────────────────────────────────────"
+echo "┌──────────────────────────────┬────────────────────────────────────────────────"
+echo "│- Android build version       │ $ANDROID_BUILD_VERSION"
+echo "├──────────────────────────────┼────────────────────────────────────────────────"
+echo "│- Android build tools version │ $ANDROID_BUILD_TOOLS_VERSION"
+echo "├──────────────────────────────┼────────────────────────────────────────────────"
+echo "│- Emulator image type         │ $ANDROID_EMULATOR_IMG_TYPE"
+echo "├──────────────────────────────┼────────────────────────────────────────────────"
+echo "│- Emulator architecture       │ $ANDROID_EMULATOR_ARCH"
+echo "├──────────────────────────────┼────────────────────────────────────────────────"
+echo "│- Emulator name               │ $EMULATOR_NAME"
+echo "├──────────────────────────────┼────────────────────────────────────────────────"
+echo "│- Emulator system image       │ $SYSTEM_IMAGE"
+echo "└──────────────────────────────┴────────────────────────────────────────────────"
+
+exit 0
 
 # SDK Update
 $ANDROID_HOME/tools/bin/sdkmanager --update
