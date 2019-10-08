@@ -94,17 +94,3 @@ ln -s $ANDROID_HOME/tools/bin/sdkmanager /usr/bin/sdkmanager
 # Accept licences and update Android SDK
 yes | sdkmanager --licenses
 sdkmanager --update
-
-
-
-
-
-
-
-
-
-
-
-
-
-

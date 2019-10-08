@@ -75,6 +75,7 @@ echo "│- Emulator name               │ $EMULATOR_NAME"
 echo "├──────────────────────────────┼────────────────────────────────────────────────"
 echo "│- Emulator system image       │ $SYSTEM_IMAGE"
 echo "└──────────────────────────────┴────────────────────────────────────────────────"
+echo ""
 
 # SDK Update
 $ANDROID_HOME/tools/bin/sdkmanager --update
@@ -90,10 +91,9 @@ $ANDROID_HOME/tools/bin/sdkmanager "platform-tools" \
         "emulator" \
         "$SYSTEM_IMAGE"
 
-touch ~/.android/repositories.cfg
-
 # Avd Creation, name is "emulateur-29"
 cd $ANDROID_HOME/tools/bin/ && echo "no" | ./avdmanager create avd -n $EMULATOR_NAME -k $SYSTEM_IMAGE --force
+echo ""
 
 # List all avd available
 ./avdmanager list avd
