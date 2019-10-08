@@ -7,6 +7,9 @@ echo "            ║         Android Emulator launch script v1.1         ║"
 echo "            ║                                                     ║"
 echo "            ║      Use -h or --help to see available commands     ║"
 echo "            ║                                                     ║"
+echo "            ║       Launch this script with sudo -E to keep       ║"
+echo "            ║           environment variable available            ║"
+echo "            ║                                                     ║"
 echo "            ╚═════════════════════════════════════════════════════╝"
 echo ""
 
@@ -54,6 +57,8 @@ until $WAIT_CMD | grep -m 1 stopped; do
     echo "Waiting for device to come online..."
     sleep 1
 done
+
+sleep 10
 
 # Lock screen unlock
 $ANDROID_HOME/platform-tools/adb shell input keyevent 82
