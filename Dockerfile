@@ -11,7 +11,7 @@ WORKDIR /application
 ADD sdkmanager-download-debian.sh /application/
 RUN chmod +x /application/sdkmanager-download-debian.sh && /application/sdkmanager-download-debian.sh
 
-// Todo remove if emulator can be launched without these libraries.
+#// Todo remove if emulator can be launched without these libraries.
 # Required Emulator libraries
 #RUN dpkg --add-architecture i386 && \
 #        apt-get update && \
