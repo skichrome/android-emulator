@@ -29,6 +29,7 @@ RUN dpkg --add-architecture i386 && \
 		apt-get install -y --no-install-recommends default-jdk \
 			wget \
 			nano \
+			git \
 			unzip
 
 # Download Android SDK and create symlinks
