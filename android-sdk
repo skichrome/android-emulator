@@ -1,80 +1,28 @@
-# skichrome/android-sdk:0.4
+# skichrome/android-sdk:1.0
 # Command to start : sh -c "$@"
 
 # Base image
 FROM debian:9
 
-#System libraries
-RUN apt-get update
-RUN apt-get upgrade -y --no-install-recommends
-
-RUN apt-get install -y --no-install-recommends default-jdk \
-	wget \
-	zip \
-	unzip
-
-# Required Emulator libraries
-RUN dpkg --add-architecture i386 && \
-        apt-get update && \
-        apt-get install -y --no-install-recommends libx11-6 \
-                pulseaudio \
-                libpulse0 \
-                libgl1 \
-                libxcursor-dev \
-                libasound2 \
-                libudev1 \
-                qt5-default
-
-RUN apt-get install -y --no-install-recommends libncurses5:i386 \
-        libc6:i386 \
-        libstdc++6:i386 \
-        lib32gcc1 \
-        lib32ncurses5 \
-        lib32z1 \
-        zlib1g:i386
-
-# Android build tools download and install
-ARG ANDROID_SDK_VERSION=4333796
-ENV ANDROID_HOME /opt/android-sdk
-RUN mkdir -p ${ANDROID_HOME} && cd ${ANDROID_HOME} && \
-    wget -q https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_VERSION}.zip && \
-    unzip *tools*linux*.zip && \
-    rm *tools*linux*.zip
-
-RUN mkdir ~/.android && touch ~/.android/repositories.cfg
-
-# Licences android
-RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
-    
-# Install Android build tools and libraries
-ENV ANDROID_BUILD_VERSION=29
-ENV ANDROID_BUILD_TOOLS_VERSION=29.0.2
-
-# Create symlinks for adb and sdkmanager
-RUN ln -s $ANDROID_HOME/platform-tools/adb /usr/bin/adb
-RUN ln -s $ANDROID_HOME/tools/bin/sdkmanager /usr/bin/sdkmanager
-
-RUN sdkmanager --update
-RUN sdkmanager "platform-tools" \
-    "platforms;android-${ANDROID_BUILD_VERSION}" \
-	"build-tools;${ANDROID_BUILD_TOOLS_VERSION}" \
-	"system-images;android-${ANDROID_BUILD_VERSION};google_apis;x86"
-
 # Working directory
 RUN mkdir /application
 WORKDIR /application
 
-# Emulator
-#RUN cd $ANDROID_HOME/tools/bin/ && echo "no" | ./avdmanager create avd -n emulateur-29 -k "system-images;android-${ANDROID_BUILD_VERSION};google_apis;x86"
-#RUN cd $ANDROID_HOME/tools/bin/ && ./avdmanager list avd
+ADD sdkmanager-download-debian.sh /application/
+RUN chmod +x /application/sdkmanager-download-debian.sh && /application/sdkmanager-download-debian.sh
+
+// Todo remove if emulator can be launched without these libraries.
+# Required Emulator libraries
+#RUN dpkg --add-architecture i386 && \
+#        apt-get update && \
+ #       apt-get install -y --no-install-recommends libx11-6 \
+ #               pulseaudio \
+ #               libpulse0 \
+ #               libgl1 \
+ #               libxcursor-dev \
+ #               libasound2 \
+ #               libudev1 \
+ #               qt5-default
 
 # Expose adb port
 EXPOSE 5037
-
-
-
-# cd $ANDROID_HOME/tools
-# ./emulator -avd emulateur-29 -no-audio -no-boot-anim -no-window -accel on -gpu off &
-
-# Docker command, launch emulator, don't use this
-#RUN cd $ANDROID_HOME/tools/ && ./emulator -avd emulateur-29 -no-audio -no-boot-anim -no-window -accel on -gpu off &

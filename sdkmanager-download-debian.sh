@@ -75,13 +75,14 @@ echo ""
 sudo dpkg --add-architecture i386 && \
         sudo apt-get update && \
 		sudo apt-get upgrade -y --no-install-recommends && \
-		sudo apt-get install -y --no-install-recommends libx11-6 \
-                pulseaudio \
-                libgl1 \
-                libxcursor-dev \
-                #libasound2 \
-                libudev1 \
-                qt5-default && \
+		sudo apt-get install -y --no-install-recommends libncurses5:i386 \
+        libc6:i386 \
+        libstdc++6:i386 \
+        lib32gcc1 \
+        lib32ncurses5 \
+        lib32z1 \
+        zlib1g:i386 \
+		qt5-default && \
 		sudo apt-get autoremove -y --no-install-recommends && \
 		sudo apt-get autoclean
 
@@ -89,7 +90,7 @@ sudo apt-get install -y --no-install-recommends default-jdk \
 	wget \
 	unzip
 
-sudo echo "export JAVA_HOME=/usr/lib/jvm/jdk8-221" >> /etc/bashrc
+sudo echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> /etc/bashrc
 source /etc/bashrc
 
 # Download Android SDK
