@@ -44,11 +44,19 @@ done
 
 echo "┌──────────────────────────────┬─────────────────────────────────────────────────"
 echo "│- Emulator name               │ $EMULATOR_NAME "
+echo "├──────────────────────────────┼────────────────────────────────────────────────"
+echo "│- Working directory           │ $HOME"
 echo "└──────────────────────────────┴─────────────────────────────────────────────────"
 echo ""
 
 # Start previously created emulator from create-avd.sh
-$ANDROID_HOME/emulator/emulator-headless -avd $EMULATOR_NAME -wipe-data -noaudio -no-boot-anim -gpu off -no-snapshot -memory 1024 & EMULATOR_PID=$!
+$ANDROID_HOME/emulator/emulator-headless -avd ${EMULATOR_NAME} \
+	-wipe-data \
+	-noaudio \
+	-no-boot-anim \
+	-gpu off \
+	-no-snapshot \
+	& EMULATOR_PID=$!
 
 # Wait for emulator to come online
 WAIT_CMD="$ANDROID_HOME/platform-tools/adb wait-for-device shell getprop init.svc.bootanim"

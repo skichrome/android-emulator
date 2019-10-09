@@ -3,11 +3,13 @@
 echo ""
 echo "            ╔══════════════════════════════════════════════════════╗"
 echo "            ║                                                      ║"
-echo "            ║           Android SDK Download script v1.0           ║"
+echo "            ║           Android SDK Download script v1.1           ║"
 echo "            ║                                                      ║"
 echo "            ║      Use -h or --help to see available commands      ║"
 echo "            ║                                                      ║"
-echo "            ║      Please run this script as root (with sudo)      ║"
+echo "            ║    Warning ! This script will reboot the server !    ║"
+echo "            ║                                                      ║"
+echo "            ║           Please run this script with sudo           ║"
 echo "            ║         otherwise it will not end correctly.         ║"
 echo "            ║                                                      ║"
 echo "            ╚══════════════════════════════════════════════════════╝"
@@ -21,22 +23,22 @@ show_help()
 	echo "Available option for this script."
 	echo "If an option is not provided, default value is used."
 	echo "[-v=VALUE | --version=VALUE] 		: Android SDK version, default to 4333796"
+	echo "[-p=VALUE | --path=VALUE]              : Path that will be used for the SDK installation"
 	echo "[-h | --help]				: Show this help utility."
 }
 
 # Variables
 ANDROID_SDK_VERSION="4333796"
-
-if [ -z $ANDROID_HOME ]; then
-	echo "Please set ANDROID_HOME variable in your system before running this script."
-	exit 0
-fi
+ANDROID_PATH="/opt/android-sdk"
 
 for i in "$@"; do
 	case $i in
 		-v=*|--version=*) ANDROID_SDK_VERSION="${i#*=}"
 		shift
 		;;
+		-p=*|--path=*) ANDROID_PATH="${i#*=}"
+                shift
+                ;;
 		-h|--help) 
 			show_help
 			exit 0
@@ -48,49 +50,69 @@ for i in "$@"; do
 	esac
 done
 
+sudo echo "" >> /etc/bashrc
+sudo echo "" >> /etc/bashrc
+sudo echo "export ANDROID_HOME=$ANDROID_PATH" >> /etc/bashrc
+source /etc/bashrc
+echo "$ANDROID_HOME"
+
+if [ -z $ANDROID_HOME ]; then
+        echo "Please set ANDROID_HOME variable in your system before running this script."
+        exit 0
+fi
+
 echo "┌──────────────────────────────┬────────────────────────────────────────────────"
 echo "│- ANDROID_HOME                │ $ANDROID_HOME"
 echo "├──────────────────────────────┼────────────────────────────────────────────────"
+echo "│- Android SDK Location        │ $ANDROID_PATH"
+echo "├──────────────────────────────┼────────────────────────────────────────────────"
 echo "│- Android SDK Version         │ $ANDROID_SDK_VERSION"
 echo "├──────────────────────────────┼────────────────────────────────────────────────"
-echo "│- SDK Owner                   │ $USER"
+echo "│- SDK Owner                   │ $SUDO_USER"
 echo "└──────────────────────────────┴────────────────────────────────────────────────"
 echo ""
 
 # Required packages
-sudo dpkg --add-architecture i386 && \
-        sudo apt-get update && \
-		sudo apt-get upgrade -y --no-install-recommends && \
-		sudo apt-get install -y --no-install-recommends libx11-6 \
-                pulseaudio \
-                libgl1 \
-                libxcursor-dev \
-                #libasound2 \
-                libudev1 \
-                qt5-default && \
-		sudo apt-get autoremove -y --no-install-recommends && \
-		sudo apt-get autoclean
+sudo yum update && \
+	sudo yum upgrade -y && \
+	sudo yum install -y qemu-kvm \
+	libvirt \
+	libvirt-python \
+	libguestfs-tools \
+	virt-install && \
+#	sudo yum -y libx11-6 \
+#        	pulseaudio \
+#        	libgl1 \
+#        	libxcursor-dev \
+#        	#libasound2 \
+#        	libudev1 \
+#        	qt5-default && \
+	sudo yum autoremove -y
 
-sudo apt-get install -y --no-install-recommends default-jdk \
+#sudo systemctl enable libvirtd
+#sudo systemctl start libvirtd
+
+sudo yum install -y java-1.8.0-openjdk-headless.x86_64 \
 	wget \
-	zip \
 	unzip
+
+sudo echo "export JAVA_HOME=/usr/lib/jvm/jre-openjdk" >> /etc/bashrc
+source /etc/bashrc
+echo "$JAVA_HOME"
 
 # Download Android SDK
 sudo mkdir -p ${ANDROID_HOME} && cd ${ANDROID_HOME}
-sudo chown -R $USER:$USER $ANDROID_HOME
+sudo chown -R $SUDO_USER:$SUDO_USER $ANDROID_HOME
 
 wget -q https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_VERSION}.zip && \
     unzip *tools*linux*.zip && \
     rm *tools*linux*.zip
 
 # Avoid repositories.cfg error
-sudo mkdir ~/.android && touch ~/.android/repositories.cfg
+mkdir /home/$SUDO_USER/.android && touch /home/$SUDO_USER/.android/repositories.cfg
 
 # Create symlinks for adb and sdkmanager
 ln -s $ANDROID_HOME/platform-tools/adb /usr/bin/adb
-ln -s $ANDROID_HOME/tools/bin/sdkmanager /usr/bin/sdkmanager 
+ln -s $ANDROID_HOME/tools/bin/sdkmanager /usr/bin/sdkmanager
 
-# Accept licences and update Android SDK
-yes | sdkmanager --licenses
-sdkmanager --update
+sudo reboot
