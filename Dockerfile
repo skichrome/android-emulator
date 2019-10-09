@@ -32,7 +32,7 @@ RUN dpkg --add-architecture i386 && \
 
 # Download Android SDK and create symlinks
 RUN mkdir -p ${ANDROID_HOME} && cd ${ANDROID_HOME} && \
-	wget -q https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_VERSION}.zip && \
+	wget -q https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip && \
     unzip *tools*linux*.zip && \
     rm *tools*linux*.zip && \
 	ln -s $ANDROID_HOME/platform-tools/adb /usr/bin/adb && \
@@ -40,6 +40,9 @@ RUN mkdir -p ${ANDROID_HOME} && cd ${ANDROID_HOME} && \
 
 # Expose adb port
 EXPOSE 5037
+
+ADD create-avd.sh /application/
+ADD start-avd.sh /application/
 
 # -------------------------------------------------------------------------------------
 
