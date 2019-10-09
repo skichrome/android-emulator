@@ -8,6 +8,9 @@ for Centos (or any distribution with yum as package manager). Note that there is
 packages will be available on other Distributions.
 A symbolic link is created for adb and sdkmanager to be able to use it from anywhere.
 
+These scripts are intended to be used in a non virtualized environment or in other virtualisation system than Docker.
+For docker you can use dockerfile to build an image with all needed.
+
 ### List of available options
 * `-v=VALUE | --version=VALUE` : override android SDK version value.
 * `-p=VALUE | --path=VALUE` : override android SDK location on disk.
@@ -32,5 +35,8 @@ It also unlock the screen after.
 * `-n=VALUE | --name=VALUE` : override android emulator name.
 * `-h | --help` : show help
 
-## Docker file : `android-sdk` WIP
+## Docker file
 This file is used to build a docker image, that have an Android SDK installed in /opt/android-sdk and can run emulators.
+The sdk is downloaded at image build. To use an emulator, you have to create it with the script create-avd.sh in 
+working directory, and to launch it you have the second script start-avd.sh. All option above are available in these
+scripts.
