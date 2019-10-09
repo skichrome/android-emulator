@@ -8,7 +8,7 @@ FROM debian:9
 RUN mkdir /application
 WORKDIR /application
 
-ADD sdkmanager-download-debian.sh /application/
+ADD sdkmanager-download-debian.sh /application/sdkmanager-download-debian.sh
 RUN chmod +x /application/sdkmanager-download-debian.sh && /application/sdkmanager-download-debian.sh
 
 #// Todo remove if emulator can be launched without these libraries.
