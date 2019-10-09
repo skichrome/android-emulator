@@ -43,6 +43,7 @@ EXPOSE 5037
 
 ADD create-avd.sh /application/
 ADD start-avd.sh /application/
+ADD sdkmanager-download-debian.sh /application/
 
 # -------------------------------------------------------------------------------------
 
