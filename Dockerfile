@@ -1,4 +1,4 @@
-# skichrome/android-sdk:1.0
+# skichrome/android-sdk:1.0.1
 # Command to start : sh -c "$@"
 
 # Base image
@@ -28,6 +28,7 @@ RUN dpkg --add-architecture i386 && \
 		apt-get autoclean && \
 		apt-get install -y --no-install-recommends default-jdk \
 			wget \
+			nano \
 			unzip
 
 # Download Android SDK and create symlinks
@@ -41,9 +42,7 @@ RUN mkdir -p ${ANDROID_HOME} && cd ${ANDROID_HOME} && \
 # Expose adb port
 EXPOSE 5037
 
-ADD create-avd.sh /application/
-ADD start-avd.sh /application/
-ADD sdkmanager-download-debian.sh /application/
+RUN git clone https://github.com/skichrome/android-emulator.git
 
 # -------------------------------------------------------------------------------------
 
