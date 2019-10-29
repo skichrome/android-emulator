@@ -45,12 +45,6 @@ EXPOSE 5037
 
 RUN git clone https://github.com/skichrome/android-emulator.git
 
-# NFS Server for android SDK
-RUN apt-get install -y --no-install-recommends nfs-kernel-server && \
-	echo "/opt/android-sdk    172.22.0.0/24(rw,sync,no_subtree_check)" >> /etc/exports
-
-EXPOSE 2049
-
 # -------------------------------------------------------------------------------------
 
 #// Todo remove if emulator can be launched without these libraries.
