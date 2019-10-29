@@ -45,6 +45,8 @@ EXPOSE 5037
 
 RUN git clone https://github.com/skichrome/android-emulator.git
 
+RUN useradd --no-create-home --uid 1000 --user-group --gid 1000 jenkins
+
 # -------------------------------------------------------------------------------------
 
 #// Todo remove if emulator can be launched without these libraries.
