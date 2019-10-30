@@ -30,7 +30,8 @@ RUN dpkg --add-architecture i386 && \
 			wget \
 			nano \
 			git \
-			unzip
+			unzip \
+			openssh-server
 
 # Download Android SDK and create symlinks
 RUN mkdir -p ${ANDROID_HOME} && cd ${ANDROID_HOME} && \
