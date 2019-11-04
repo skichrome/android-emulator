@@ -1,5 +1,4 @@
-# skichrome/android-sdk:1.0.1
-# Command to start : sh -c "$@"
+# skichrome/android-sdk:1.0.2
 
 # Base image
 FROM debian:9
@@ -36,7 +35,7 @@ RUN dpkg --add-architecture i386 && \
 # SSH public Key Configuration
 RUN mkdir ~/.ssh/ && \
 	echo "ssh-rsa  AAAAB3NzaC1yc2EAAAABJQAAAQEAs3O8CEKsqIpw3stHGmtd1jzgNIrNF+z7bn/qnmMPKVZZinDGr93hiAArkNbW2k3YLkd76CJuzO0w0YbOKYHK2PISFvK7+cc1SmCexmXXs9wHYdG61ZIWAq2HfIPndx9ZSUiet629wc9Q06hoL/IDUgkQAeCbAQSci6HhbV5SPmsSCdM9ToqmNpRJ3BdDfXn32mvxyejP8cw9MrJDtBY/pvXjiJRWTwHdErIRKe4foYxXrAXTPRkesntxc6ikX9qlKNmzEuJgOWwPHauOjBWvp5VdgsVBHVQsjI0AA7V4aMQTFqsQz6c+8d1VVES+EnpP4PTJmNP/ImaaB/JTZP8eOw==" > ~/.ssh/authorized_keys && \
-	chmod 0600 ~/.ssh/authorized_keys &&
+	chmod 0600 ~/.ssh/authorized_keys && \
 	mkdir /run/sshd && \
 	sed -i 's/#Port 22/Port 22/g' /etc/ssh/sshd_config && \
 	sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
