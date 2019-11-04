@@ -71,7 +71,7 @@ $ANDROID_HOME/platform-tools/adb shell input keyevent 82
 
 # Logcat
 $ANDROID_HOME/platform-tools/adb logcat -c
-$ANDROID_HOME/platform-tools/adb logcat > /home/server/temp-android.log & LOGCAT_PID=$!
+$ANDROID_HOME/platform-tools/adb logcat > $HOME/temp-android.log & LOGCAT_PID=$!
 
 # print pid
 echo "Emulator : $EMULATOR_PID"
