@@ -1,4 +1,4 @@
-# skichrome/android-sdk:1.0.2
+# skichrome/android-sdk:1.0.3
 
 # Base image
 FROM debian:9
