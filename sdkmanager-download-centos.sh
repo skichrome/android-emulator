@@ -73,7 +73,7 @@ echo "└───────────────────────�
 echo ""
 
 # Required packages
-sudo yum update && \
+sudo yum update -y && \
 	sudo yum upgrade -y && \
 	sudo yum install -y qemu-kvm \
 	libvirt \
