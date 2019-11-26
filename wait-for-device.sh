@@ -32,11 +32,5 @@ until [[ "$bootanim" =~ "stopped" ]]; do
   sleep 1
 done
 
-echo "Emulator is ready"
-
-# Lock screen unlock
-$ANDROID_HOME/platform-tools/adb shell input keyevent 82
-
-# Logcat
-$ANDROID_HOME/platform-tools/adb logcat -c
-$ANDROID_HOME/platform-tools/adb logcat > $HOME/temp-android.log &
+echo "Emulator is ready, waiting 10s to be sure"
+sleep 10

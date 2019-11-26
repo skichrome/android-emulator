@@ -48,9 +48,10 @@ echo "└───────────────────────�
 echo ""
 
 # Start previously created emulator from create-avd.sh
-nohup $ANDROID_HOME/emulator/emulator-headless -avd ${EMULATOR_NAME} \
-	-wipe-data \
-	-noaudio \
-	-no-boot-anim \
-	-gpu off \
-	-no-snapshot &
+
+$ANDROID_HOME/emulator/emulator-headless -avd ${EMULATOR_NAME} \
+        -wipe-data \
+        -noaudio \
+        -no-boot-anim \
+        -gpu off \
+        -no-snapshot &
