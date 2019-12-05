@@ -31,11 +31,11 @@ for i in "$@"; do
 		-n=*|--name=*) EMULATOR_NAME="${i#*=}"
 		shift
 		;;
-		-h|--help) 
+		-h|--help)
 			show_help
 			exit 0
 		;;
-		*) 
+		*)
 			echo "unknown option, use -h or --help for a list of available options"
 			exit 0
 		;;
@@ -49,7 +49,8 @@ echo ""
 
 # Start previously created emulator from create-avd.sh
 
-$ANDROID_HOME/emulator/emulator-headless -avd ${EMULATOR_NAME} \
+$ANDROID_HOME/emulator/emulator -avd ${EMULATOR_NAME} \
+	-no-window \
         -wipe-data \
         -noaudio \
         -no-boot-anim \
