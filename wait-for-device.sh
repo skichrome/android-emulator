@@ -31,6 +31,3 @@ until [[ "$bootanim" =~ "stopped" ]]; do
   fi
   sleep 1
 done
-
-echo "Emulator is ready, waiting 10s to be sure"
-sleep 10

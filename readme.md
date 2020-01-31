@@ -28,7 +28,7 @@ This script is used to create an avd using a previously installed android SDK.
 * `-h | --help` : show help
 
 ## Android emulator running tool : `start-avd.sh`
-This script can launch an avd and wait until it has started.
+This script can launch an avd.
 
 ## Android emulator wait device to come online : `wait-for-devices.sh`
 Wait emulator to be available and unlock the screen after. Logs output defined in home directory.
@@ -38,7 +38,5 @@ Wait emulator to be available and unlock the screen after. Logs output defined i
 * `-h | --help` : show help
 
 ## Docker file
-This file is used to build a docker image, that have an Android SDK installed in /opt/android-sdk and can run emulators.
-The sdk is downloaded at image build. To use an emulator, you have to create it with the script create-avd.sh in 
-working directory, and to launch it you have the second script start-avd.sh. After that you need to call wait-for-devices.sh.
-All option above are available in these scripts.
+This file is used to build a docker image, that can be used to run emulators.
+To use an emulator, you have to create it with the script create-avd.sh in working directory, and to launch it you have the second script start-avd.sh. After that you need to call wait-for-devices.sh. All option above are available in these scripts.
